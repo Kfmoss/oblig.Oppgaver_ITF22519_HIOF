@@ -1,37 +1,40 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
-int mycmpFunction(char * string1, char * string2){
-    //if string1 and string2 are equal then strcmp returns 0, otherwise 1 
-    return strcmp(string1, string2);
-
-}
+void Palindrom(char *, char *, int );
 
 
-char checkEquality(char A[], char B[]){
-    if(mycmpFunction(A,B)==0){
-        printf("equal\n");
-    }
-    else{
-        printf("words are not equal\n");
+void main(){
 
-    }
-
-}
-int palindrom( char * S1){
-    int sizeS1 = strlen(S1);
+    char ar[100]="please";
+    char *A;
+    A =(char*)malloc(100*sizeof(char));
+    int n = strlen(ar);
+    Palindrom(ar, A, n);
+    free(A);
     
 }
 
-int main(){
+void Palindrom(char *b, char *a, int n){
+    int i =0;
 
-
-    char A[]= "Black Hawk";
-    char B[]= "Black Hawk";
-    checkEquality(A,B);
-
+    while(i<n){
+        a[i]=b[n-i-1];
+        i++;
+    }
+    // printf("%s\n", a);
     
+    
+    if(strcmp(a,b)==0){
 
+        printf("true\n");
+        return 1;
+    
+    }else{
+         printf("false\n");
+        return 0;
+        
+    }
 
 }
