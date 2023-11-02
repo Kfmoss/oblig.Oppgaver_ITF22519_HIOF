@@ -84,7 +84,7 @@ void first_in_first_out()
   while(pivot1<N){
     if(tmp[0]== PF[pivot1].load){
         
-        printf(" First in first out \n Page : %d    Loaded: %d   Last ref: %d  R:  %d  M:  %d \n", PF[pivot1].id,PF[pivot1].load, PF[pivot1].last, PF[pivot1].R, PF[pivot1].M );
+        printf(" First in first out \n Page : %d    Loaded: %d   Last ref: %d  R:  %d  M:  %d \n \n", PF[pivot1].id,PF[pivot1].load, PF[pivot1].last, PF[pivot1].R, PF[pivot1].M );
     }
     pivot1++;
   }  
@@ -108,7 +108,7 @@ void least_recently_used()
     while (pivot1<N)
     {
         if(tmp[0]==PF[pivot1].last){
-            printf("least recently used \n  Page : %d    Loaded: %d   Last ref: %d  R:  %d  M:  %d \n", PF[pivot1].id,PF[pivot1].load, PF[pivot1].last, PF[pivot1].R, PF[pivot1].M);
+            printf("least recently used \n  Page : %d    Loaded: %d   Last ref: %d  R:  %d  M:  %d \n \n", PF[pivot1].id,PF[pivot1].load, PF[pivot1].last, PF[pivot1].R, PF[pivot1].M);
         }
         pivot1++;
     }
@@ -117,44 +117,47 @@ void least_recently_used()
 }
 
 //second_chance(): Simulering av page replacement med Second Chance
-//
-void second_chance()
-{
-   int i =0, x =0, pivot1 =0, pivot2 =0, ext=0, tr=0;
-   int tmp[N];
-   while(i<N){
-    tmp[i]= PF[x].load;
 
-    i++;
-    x++;
-   }
-   qsort(tmp,N, sizeof(int), compareInt);
-   
-   while(pivot1<N){
-        printf("hello!");
-        if( tmp[0]==PF[pivot1].load){
-            printf("%d ",tmp[0]);
-            // PF[pivot1].load = T;
-            // PF[pivot1].R = 0;
-        }
-        pivot1++;
+void second_chance(){
+    int i =0, x =0, z =0, c =0, c2=0, c3=0, c4=0, tr1=0, load, id,last, r, m;
+    int tmp[N];
+
+
+    while(i<N){
+        tmp[i] = PF[x].load;
+        i++;
+        x++;
     }
-    int len_new_sorted_arr = sizeof(tmp)/sizeof(tmp[0]);
-   // while(i<N){
-    //     tmp[i]=tmp[i+1];
-    //     printf("%d  ", tmp[i]);
-    //     i++;
+    //sort the temp list with "last" values on it.
+    qsort(tmp, N, sizeof(int), compareInt);
 
-    // }
+    for(int pl=0; pl<N; pl++){
+        for(int px =0; px<N; px++){
+            if(tmp[0]==PF[px].load){
+                id = PF[px].id;
+                load= PF[px].load;
+                last = PF[px].last;
+                r=PF[px].R;
+                m=PF[px].M;
+                PF[px].load =300;
+                PF[px].R=0;
+                tmp[0] = T;
+                qsort(tmp, N, sizeof(int), compareInt);
+                c++;
+            }
+            if(c==N-1){
+                
+                break;
+            }
+        }
+    }
+    printf( "Second Chance \n Page: %d Loaded: %d Last ref: %d  R: %d  M: %d\n",id,load,last,r, m );
 
-   
-   
+  
 
+    
 }
 
-// main(): Leser filnavn med page frame data, leser inndata fra fil og
-// kjører tre ulike page replacement algoritmer
-//
 int main()
 {
    char filename[100];
@@ -167,7 +170,8 @@ int main()
    read_file(filename);
 
    // Simulerer page replacement
-//    first_in_first_out();
-//    least_recently_used();
+   first_in_first_out();
+   least_recently_used();
    second_chance();
+
 }
