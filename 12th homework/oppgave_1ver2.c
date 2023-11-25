@@ -3,8 +3,19 @@
 #include <math.h>
 
 char *byte_size(long double n_bytes);
+/*
+
+
+Jeg sender denne versjonen som bruker formellen oppgitt i 12th obligatorisk oppgave for å regne ut maksimal filstørrelse.
+
+
+*/
 
 int main() {
+
+
+
+
     int ptr_size, block_size;
     
     printf("Ptr.size in bits (32|64)? ");
@@ -48,11 +59,14 @@ int main() {
         printf("%d \n",a);
     
     if (ptr_size == 32) {
-        max_disk_size = pow(2, 32) * bytes_in_block;
-        max_file_size = pow(2,32)/a *bytes_in_block;
+        max_disk_size = pow(2, 32)*a;
+        max_file_size = (12+1024+pow(1024,2)+pow(1024,3))*bytes_in_block;
+        // max_file_size = pow(2,32)/a *bytes_in_block;
     } else if (ptr_size == 64) {
-        max_disk_size = pow(2, 64) * bytes_in_block;
-        max_file_size = pow(2, 64)/a*bytes_in_block;  
+        max_disk_size = pow(2, 64)*a;
+        max_file_size = (12+1024+pow(1024,2)+pow(1024,3))*bytes_in_block;
+
+        // max_file_size = pow(2, 64)/a*bytes_in_block;  
     } else {
         printf("Invalid pointer size\n");
         return 1;
