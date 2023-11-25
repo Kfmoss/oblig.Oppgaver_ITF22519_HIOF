@@ -14,7 +14,7 @@ int main() {
     printf("Block size in kB (1|2|4|8)? ");
     scanf("%d", &block_size);
 
-    /*Max File Size=Number of Addresses in an i-node×Block size*/
+    /*Max File Size=Number of Addresses in an i-node×Block size * 1024*/
     
     // Beregner maksimal diskstørrelse og filstørrelse
 
