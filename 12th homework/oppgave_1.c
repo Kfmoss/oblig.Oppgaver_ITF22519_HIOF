@@ -13,17 +13,47 @@ int main() {
     
     printf("Block size in kB (1|2|4|8)? ");
     scanf("%d", &block_size);
+
+    /*Max File Size=Number of Addresses in an i-node×Block size*/
     
     // Beregner maksimal diskstørrelse og filstørrelse
+
+    /*
+    1KB = 2^10 bytes
+    2KB = 2^11 bytes
+    4KB = 2^12 bytes
+    8KB = 2^13 bytes
+    */
+
+
     long double max_disk_size, max_file_size;
-    long double bytes_in_block = block_size * 1024.0L;
+    long double bytes_in_block = block_size *1024;
+    /*
+    1024.0L
+    */
+ 
+    int a;
+    if( block_size ==1){
+        a =pow(2,10);
+           
+    }
+    else if(block_size ==2){
+        a = pow(2,11);
+    }
+    else if(block_size ==4){
+        a = pow(2,12);
+    }
+    else{
+        a =pow(2,13);    
+    } 
+        printf("%d \n",a);
     
     if (ptr_size == 32) {
         max_disk_size = pow(2, 32) * bytes_in_block;
-        max_file_size = pow(2, 32);
+        max_file_size = pow(2,32)/a *bytes_in_block;
     } else if (ptr_size == 64) {
         max_disk_size = pow(2, 64) * bytes_in_block;
-        max_file_size = pow(2, 42);  // 42 bits for inoden i dette eksemplet
+        max_file_size = pow(2, 64)/a*bytes_in_block;  
     } else {
         printf("Invalid pointer size\n");
         return 1;
@@ -43,7 +73,7 @@ char *byte_size(long double n_bytes) {
     int index = 0;
     long double size =n_bytes;
 
-    while (size >= 1024.0 && index < 5) {
+    while (size >= 1024.0 && index < 7) {
         size /= 1024.0;
         index++;
     }
